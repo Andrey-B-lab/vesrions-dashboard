@@ -1,15 +1,18 @@
 # Versions Dashboard POC
 
 This repository contains an **POC** demonstrating a complete Versions Dashboard workflow.
+
 For example:
 1. Solid-color dashboard with two panels.
+
    Versions by product panel:
    ![alt text](https://github.com/Andrey-B-lab/vesrions-dashboard-POC/blob/development/table-by-product-solid-color-green.png)
 
    Versions by date panel:
    ![alt text](https://github.com/Andrey-B-lab/vesrions-dashboard-POC/blob/development/table-by-date-solid-color-blue.png)
 
-2. Environment colors dashboard with two panels.
+3. Environment colors dashboard with two panels.
+   
    Versions by product panel:
    ![alt text]()
 
