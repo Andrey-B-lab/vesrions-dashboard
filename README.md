@@ -1,6 +1,13 @@
 # Versions Dashboard POC
 
-This repository contains an **exercise** demonstrating a complete Versions Dashboard workflow:
+This repository contains an **POC** demonstrating a complete Versions Dashboard workflow.
+For example:
+1. Solid-color dashboard with two panels.
+   Versions by product panel:
+   ![alt text]()
+
+   Versions by date panel:
+   ![alt text]()
 
 
 
