@@ -4,10 +4,10 @@ This repository contains an **POC** demonstrating a complete Versions Dashboard 
 For example:
 1. Solid-color dashboard with two panels.
    Versions by product panel:
-   ![alt text]()
+   ![alt text](https://github.com/Andrey-B-lab/vesrions-dashboard-POC/blob/development/table-by-product-solid-color-green.png)
 
    Versions by date panel:
-   ![alt text]()
+   ![alt text](https://github.com/Andrey-B-lab/vesrions-dashboard-POC/blob/development/table-by-date-solid-color-blue.png)
 
 
 
