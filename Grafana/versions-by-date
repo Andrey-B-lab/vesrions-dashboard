@@ -1,7 +1,3 @@
-###
-# Table panel in Grafana
-###
-
 SELECT
   job_name AS "אפליקציה",
 
