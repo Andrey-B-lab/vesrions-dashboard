@@ -9,7 +9,14 @@ For example:
    Versions by date panel:
    ![alt text](https://github.com/Andrey-B-lab/vesrions-dashboard-POC/blob/development/table-by-date-solid-color-blue.png)
 
+2. Environment colors dashboard with two panels.
+   Versions by product panel:
+   ![alt text]()
 
+   Versions by date panel:
+   ![alt text]()
+
+####### Updated info till here
 
 - **Jenkinsfile** that clones the code on a build server, builds a Docker image, uploads it to DockerHub, and then deploys the application as a Pod on a separate deploy server (Minikube).
 - **GitHub Actions** (Sonar Cloud & Snyk) run automatically on every push to the `development` branch, ensuring code quality and security checks.
