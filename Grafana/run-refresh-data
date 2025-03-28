@@ -1,0 +1,6 @@
+###
+# Add this to the Text panel in Grafana as Markdown
+###
+<a href="http://jenkins-server:8080/job/collect-deploy-info/build?token=version-update" target="_blank">
+  <span style="font-size: 15px;">▶️ Run Refresh Data</span>
+</a>
