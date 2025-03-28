@@ -1,0 +1,53 @@
+pipeline {
+  agent any
+
+  environment {
+    JOBS = "UI TP CGW"
+    JENKINS_URL = "http://jenkins:8080"
+    DB_HOST = "11.11.11.11"
+    DB_PORT = "5432"
+    DB_NAME = "postgres"
+    DB_USER = "username"
+    DB_PASS = "password"
+  }
+
+  stages {
+    stage('Collect and Insert Deployment Info') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'version-tracking', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_TOKEN')]) {
+          script {
+            sh '''
+              for job in $JOBS; do
+                build_ids=$(curl -s -u "$JENKINS_USER:$JENKINS_TOKEN" "$JENKINS_URL/job/$job/api/json" | jq -r '.builds[].number' | head -n 20)
+
+                for env in DEV TEST STAGE PROD; do
+                  for build_id in $build_ids; do
+                    build_url="$JENKINS_URL/job/$job/$build_id/api/json"
+                    build_json=$(curl -s -u "$JENKINS_USER:$JENKINS_TOKEN" "$build_url")
+
+                    build_env=$(echo "$build_json" | jq -r '.actions[]?.parameters[]? | select(.name=="ENVIRONMENT") | .value')
+                    build_version=$(echo "$build_json" | jq -r '.actions[]?.parameters[]? | select(.name=="VERSION") | .value')
+                    build_user=$(echo "$build_json" | jq -r '.actions[]?.causes[]? | select(.userName != null) | .userName')
+                    timestamp_ms=$(echo "$build_json" | jq -r '.timestamp')
+                    timestamp_fmt=$(date -d @$((timestamp_ms / 1000)) +"%Y-%m-%d %H:%M:%S")
+
+                    if [ -z "$build_env" ] || [ -z "$build_version" ]; then
+                      continue
+                    fi
+
+                    if [ "$build_env" = "$env" ]; then
+                      echo "Inserting: $job | $build_version | $env | $timestamp_fmt | $build_user"
+                      echo "INSERT INTO deployed_versions (job_name, version, environment, deployed_at, system, deployed_by) VALUES ('$job', '$build_version', '$env', '$timestamp_fmt', 'digital-private', '$build_user');" > insert_${job}_${env}.sql
+                      PGPASSWORD=$DB_PASS psql -h $DB_HOST -U $DB_USER -d $DB_NAME -p $DB_PORT -f insert_${job}_${env}.sql
+                      break
+                    fi
+                  done
+                done
+              done
+            '''
+          }
+        }
+      }
+    }
+  }
+}
