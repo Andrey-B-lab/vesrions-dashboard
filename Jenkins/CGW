@@ -1,0 +1,57 @@
+pipeline {
+  agent any
+
+  parameters {
+    string(name: 'VERSION', defaultValue: '1.0.0', description: 'Version to deploy')
+    choice(name: 'ENVIRONMENT', choices: ['DEV', 'TEST', 'STAGE', 'PROD'], description: 'Target environment')
+  }
+
+  environment {
+    APP_NAME = 'node-app'
+    APP_PATH = '/apps/Express'
+    IMAGE_NAME = "${APP_NAME}:${params.VERSION}"
+    CONTAINER_NAME = "${APP_NAME}-${params.ENVIRONMENT.toLowerCase()}"
+  }
+
+  stages {
+    stage('Build Docker Image') {
+      steps {
+        script {
+          sh "docker build -t ${IMAGE_NAME} ${APP_PATH}"
+        }
+      }
+    }
+
+    stage('Deploy to Environment') {
+      steps {
+        script {
+          def PORT_MAP = [
+            "DEV": "8201",
+            "TEST": "8202",
+            "STAGE": "8203",
+            "PROD": "8204"
+          ]
+          def port = PORT_MAP[params.ENVIRONMENT]
+          
+          sh """
+            docker rm -f ${CONTAINER_NAME} || true
+            docker run -d --name ${CONTAINER_NAME} \\
+              -e APP_VERSION=${params.VERSION} \\
+              -p ${port}:80 \\
+              ${IMAGE_NAME}
+              
+            # Wait a few seconds, then stop the container
+            sleep 10
+            docker stop ${CONTAINER_NAME}
+          """
+        }
+      }
+    }
+
+    stage('Log Deployment Info') {
+      steps {
+        echo "Deployed ${env.APP_NAME} version ${params.VERSION} to ${params.ENVIRONMENT}"
+      }
+    }
+  }
+}
