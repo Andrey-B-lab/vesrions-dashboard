@@ -17,8 +17,8 @@ resource "aws_vpc_security_group_ingress_rule" "my_ip_ssh_ingress" {
   description       = "SSH from my IP"
   from_port         = 22
   to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = ["${var.my_ip_address}/32"]
+  ip_protocol       = "tcp"
+  cidr_ipv4         = var.my_ip_address
 }
 
 resource "aws_vpc_security_group_egress_rule" "my_ip_ssh_egress" {
@@ -26,6 +26,6 @@ resource "aws_vpc_security_group_egress_rule" "my_ip_ssh_egress" {
   description       = "Allow all outbound"
   from_port         = 0
   to_port           = 0
-  protocol          = "-1"
-  cidr_blocks       = ["0.0.0.0/0"]
+  ip_protocol       = "-1"
+  cidr_ipv4         = "0.0.0.0/0"
 }
