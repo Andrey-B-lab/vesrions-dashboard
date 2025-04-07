@@ -1,12 +1,12 @@
 resource "aws_instance" "jenkins_server" {
   ami           = "ami-0e86e20dae9224db8"
-  instance_type = "t2.micro"
+  instance_type = "t2.small"
 
   vpc_security_group_ids = [aws_security_group.my_ip_ssh.id]
-  key_name               = var.key_pair_name  # taken from variables.tf
+  key_name               = var.key_pair_name
 
   root_block_device {
-    volume_size = 10  # 10GB is a recommended minimum if running Jenkins as a Docker container
+    volume_size = 20
     volume_type = "gp2"
   }
 
@@ -14,52 +14,67 @@ resource "aws_instance" "jenkins_server" {
     Name = "JenkinsServer"
   }
 
-user_data = <<-EOF
-            #!/bin/bash
-            # Update the package index
-            sudo apt-get update -y
+  user_data = <<-EOF
+              #!/bin/bash
+              # Update the package index
+              apt-get update -y
 
-            # Install prerequisite packages
-            sudo apt-get install -y \
+              # Install prerequisite packages
+              apt-get install -y \
                 apt-transport-https \
                 ca-certificates \
                 curl \
-                software-properties-common
+                software-properties-common \
+                gnupg \
+                lsb-release
 
-            # Add Docker’s official GPG key
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+              # Add Docker's GPG key
+              curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-            # Add Docker’s official APT repository
-            echo \
-              "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-              $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+              # Add Docker repo
+              echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+              $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
 
-            # Update the package index again to include Docker packages
-            sudo apt-get update -y
+              # Install Docker
+              apt-get update -y
+              apt-get install -y docker-ce docker-ce-cli containerd.io
 
-            # Install Docker
-            sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+              # Start and enable Docker
+              systemctl start docker
+              systemctl enable docker
 
-            # Start Docker service
-            sudo systemctl start docker
+              # Add default user to docker group
+              usermod -aG docker ubuntu
 
-            # Enable Docker to start on boot
-            sudo systemctl enable docker
+              # Pull Docker images
+              docker pull jenkins/jenkins:lts
+              docker pull grafana/grafana
+              docker pull postgres
 
-            # Add the ec2-user to the docker group to run Docker without sudo
-            sudo usermod -aG docker ubuntu
+              # Create volumes
+              docker volume create jenkins_data
+              docker volume create grafana_data
+              docker volume create postgres_data
 
-            # Pull the Jenkins Docker image
-            sudo docker pull jenkins/jenkins:lts
+              # Run Jenkins
+              docker run -d --name jenkins \
+                -p 8080:8080 -p 50000:50000 \
+                -v jenkins_data:/var/jenkins_home \
+                jenkins/jenkins:lts
 
-            # Create a Jenkins directory for persistent storage
-            sudo mkdir -p /var/jenkins_home
-            sudo chown -R 1000:1000 /var/jenkins_home
+              # Run Grafana
+              docker run -d --name grafana \
+                -p 3000:3000 \
+                -v grafana_data:/var/lib/grafana \
+                grafana/grafana
 
-            # Run Jenkins in a Docker container
-            sudo docker run -d -p 8080:8080 -p 50000:50000 \
-              --name jenkins \
-              -v /var/jenkins_home:/var/jenkins_home \
-              jenkins/jenkins:lts
-            EOF
+              # Run PostgreSQL
+              docker run -d --name postgres \
+                -e POSTGRES_PASSWORD=admin \
+                -e POSTGRES_USER=admin \
+                -e POSTGRES_DB=app_db \
+                -p 5432:5432 \
+                -v postgres_data:/var/lib/postgresql/data \
+                postgres
+              EOF
 }
