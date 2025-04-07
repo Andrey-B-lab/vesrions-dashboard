@@ -1,0 +1,1114 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 19,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Versions Live",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<a href=\"http://35.175.213.19:8080/job/collect-deploy-info/build?token=version-update\" target=\"_blank\">\n  <span style=\"font-size: 15px;\">▶️ Run Refresh Data</span>\n</a>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.5.1",
+      "title": "",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "begwzjtm6t2ioa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#aac6f000",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "applyToRow": false,
+              "mode": "gradient",
+              "type": "color-background",
+              "wrapText": false
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "fieldMinMax": false,
+          "mappings": [
+            {
+              "options": {
+                "*": {
+                  "color": "super-light-blue",
+                  "index": 0
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "empty",
+                "result": {
+                  "index": 1,
+                  "text": "2.0.1     | 2025-03-25 |"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0
+              },
+              {
+                "color": "#EF843C",
+                "value": 1
+              },
+              {
+                "color": "super-light-yellow",
+                "value": 1.0001
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 1.1
+              },
+              {
+                "color": "#E24D42",
+                "value": 2
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "אפליקציה"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 126
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#14274600",
+                  "mode": "shades"
+                }
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "displayName",
+                "value": "application"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV Version"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2b7222",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 123
+              },
+              {
+                "id": "displayName",
+                "value": "DEV"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV Date"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV User"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST Version"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2b7222",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "TEST"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST Date"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST User"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE Version"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2b7222",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "STAGE"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE Date"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE User"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD Version"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2b7222",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "PROD"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD Date"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD User"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#45dd5633",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "displayName",
+                "value": "⠀"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 80
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 84
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "⠀"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 99
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 86
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 77
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": " "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "   "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "    "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": " "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 13
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "אפליקציה"
+          }
+        ]
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "YOUR_DATASOURCE_UID"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  job_name AS \"application\",\n\n  -- DEV\n  MAX(CASE WHEN environment = 'DEV' THEN 'v' || version END) AS \"DEV Version\",\n  MAX(CASE WHEN environment = 'DEV' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"DEV Date\",\n  MAX(CASE WHEN environment = 'DEV' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"DEV User\",\n\n  -- Blank before TEST\n  NULL AS \"  \",\n\n  -- TEST\n  MAX(CASE WHEN environment = 'TEST' THEN 'v' || version END) AS \"TEST Version\",\n  MAX(CASE WHEN environment = 'TEST' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"TEST Date\",\n  MAX(CASE WHEN environment = 'TEST' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"TEST User\",\n\n  -- Blank before STAGE\n  NULL AS \"   \",\n\n  -- STAGE\n  MAX(CASE WHEN environment = 'STAGE' THEN 'v' || version END) AS \"STAGE Version\",\n  MAX(CASE WHEN environment = 'STAGE' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"STAGE Date\",\n  MAX(CASE WHEN environment = 'STAGE' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"STAGE User\",\n\n  -- Blank before PROD\n  NULL AS \"    \",\n\n  -- PROD\n  MAX(CASE WHEN environment = 'PROD' THEN 'v' || version END) AS \"PROD Version\",\n  MAX(CASE WHEN environment = 'PROD' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"PROD Date\",\n  MAX(CASE WHEN environment = 'PROD' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"PROD User\"\n\nFROM deployed_versions\nWHERE system = '${system}'\nGROUP BY job_name\nORDER BY job_name;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Versions Live",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Versions by Data",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "begwzjtm6t2ioa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "applyToRow": false,
+              "mode": "gradient",
+              "type": "color-background",
+              "wrapText": false
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV Date"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV User"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST Date"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST User"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE Date"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE User"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD Date"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD User"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "⠀"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#457ede33",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV Version"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "DEV"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2d5887",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST Version"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "TEST"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2d5887",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE Version"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "STAGE"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2d5887",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD Version"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "PROD"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#2d5887",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "אפליקציה"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "custom.width",
+                "value": 123
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#14274600",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DEV"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 86
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "⠀"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 4
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#14274600",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TEST"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "   "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 10
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#14274600",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "STAGE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 79
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "    "
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 19
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#14274600",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PROD"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 74
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 3,
+      "options": {
+        "cellHeight": "lg",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "אפליקציה"
+          }
+        ]
+      },
+      "pluginVersion": "11.5.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  job_name AS \"application\",\n\n  -- DEV\n  MAX(CASE WHEN environment = 'DEV' THEN 'v' || version END) AS \"DEV Version\",\n  MAX(CASE WHEN environment = 'DEV' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"DEV Date\",\n  MAX(CASE WHEN environment = 'DEV' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"DEV User\",\n  \n  -- Blank before TEST\n  NULL AS \"  \",\n\n  -- TEST\n  MAX(CASE WHEN environment = 'TEST' THEN 'v' || version END) AS \"TEST Version\",\n  MAX(CASE WHEN environment = 'TEST' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"TEST Date\",\n  MAX(CASE WHEN environment = 'TEST' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"TEST User\",\n\n  -- Blank before STAGE\n  NULL AS \"   \",\n\n  -- STAGE\n  MAX(CASE WHEN environment = 'STAGE' THEN 'v' || version END) AS \"STAGE Version\",\n  MAX(CASE WHEN environment = 'STAGE' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"STAGE Date\",\n  MAX(CASE WHEN environment = 'STAGE' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"STAGE User\",\n\n  -- Blank before PROD\n  NULL AS \"    \",\n\n  -- PROD\n  MAX(CASE WHEN environment = 'PROD' THEN 'v' || version END) AS \"PROD Version\",\n  MAX(CASE WHEN environment = 'PROD' THEN TO_CHAR(deployed_at, 'YYYY-MM-DD') END) AS \"PROD Date\",\n  MAX(CASE WHEN environment = 'PROD' THEN SPLIT_PART(deployed_by, ' ', 1) || ' ' || LEFT(SPLIT_PART(deployed_by, ' ', 2), 1) END) AS \"PROD User\"\n\nFROM deployed_versions\nWHERE\n  system = '${system}'\n  AND deployed_at <= '${selected_date}'::date + interval '1 day'\nGROUP BY job_name\nORDER BY job_name;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Versions by Date: ${selected_date}",
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "refresh": "30s",
+  "schemaVersion": 40,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "digital-private",
+          "value": "digital-private"
+        },
+        "includeAll": false,
+        "label": "system",
+        "name": "system",
+        "options": [
+          {
+            "selected": true,
+            "text": "notification-service",
+            "value": "digital-private"
+          },
+          {
+            "selected": false,
+            "text": "validation-service",
+            "value": "digital-business"
+          },
+          {
+            "selected": false,
+            "text": "front-app",
+            "value": "leumi-trade"
+          }
+        ],
+        "query": "notification-service : digital-private, validation-service : digital-business, front-app : leumi-trade",
+        "type": "custom"
+      },
+      {
+        "current": {
+          "text": "2025-03-29",
+          "value": "2025-03-29"
+        },
+        "definition": "SELECT DISTINCT TO_CHAR(deployed_at, 'YYYY-MM-DD') FROM deployed_versions ORDER BY 1 DESC",
+        "name": "selected_date",
+        "options": [],
+        "query": "SELECT DISTINCT TO_CHAR(deployed_at, 'YYYY-MM-DD') FROM deployed_versions ORDER BY 1 DESC",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Beta-solid-color-english",
+  "uid": "dehpbkpdqb5s0b",
+  "version": 8,
+  "weekStart": ""
+}
