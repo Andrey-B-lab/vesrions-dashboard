@@ -16,65 +16,69 @@ resource "aws_instance" "jenkins_server" {
 
   user_data = <<-EOF
               #!/bin/bash
-              # Update the package index
               apt-get update -y
+              apt-get install -y docker.io git
 
-              # Install prerequisite packages
-              apt-get install -y \
-                apt-transport-https \
-                ca-certificates \
-                curl \
-                software-properties-common \
-                gnupg \
-                lsb-release
-
-              # Add Docker's GPG key
-              curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-              # Add Docker repo
-              echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-              $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-
-              # Install Docker
-              apt-get update -y
-              apt-get install -y docker-ce docker-ce-cli containerd.io
-
-              # Start and enable Docker
+              # Enable Docker
               systemctl start docker
               systemctl enable docker
 
-              # Add default user to docker group
+              # Add ubuntu user to docker group
               usermod -aG docker ubuntu
 
-              # Pull Docker images
-              docker pull jenkins/jenkins:lts
-              docker pull grafana/grafana
-              docker pull postgres
+              # Install Docker Compose
+              curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              chmod +x /usr/local/bin/docker-compose
 
-              # Create volumes
-              docker volume create jenkins_data
-              docker volume create grafana_data
-              docker volume create postgres_data
+              # Create Jenkins directory
+              mkdir -p /home/ubuntu/jenkins_compose
+              cd /home/ubuntu/jenkins_compose
 
-              # Run Jenkins
-              docker run -d --name jenkins \
-                -p 8080:8080 -p 50000:50000 \
-                -v jenkins_data:/var/jenkins_home \
-                jenkins/jenkins:lts
+              # Create Dockerfile
+              cat <<EOL > Dockerfile
+              FROM jenkins/jenkins:lts
 
-              # Run Grafana
-              docker run -d --name grafana \
-                -p 3000:3000 \
-                -v grafana_data:/var/lib/grafana \
-                grafana/grafana
+              USER root
 
-              # Run PostgreSQL
-              docker run -d --name postgres \
-                -e POSTGRES_PASSWORD=admin \
-                -e POSTGRES_USER=admin \
-                -e POSTGRES_DB=app_db \
-                -p 5432:5432 \
-                -v postgres_data:/var/lib/postgresql/data \
-                postgres
+              RUN apt-get update && \
+                  apt-get install -y docker.io python3 python3-pip curl gnupg jq postgresql-client && \
+                  curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+                  apt-get install -y nodejs && \
+                  usermod -aG docker jenkins
+
+              USER jenkins
+              EOL
+
+              # Create docker-compose.yml
+              cat <<EOL > docker-compose.yml
+              version: '3'
+              services:
+                jenkins:
+                  build: .
+                  image: custom-jenkins:with-tools
+                  restart: always
+                  privileged: true
+                  user: root
+                  ports:
+                    - 8080:8080
+                    - 50000:50000
+                  container_name: jenkins
+                  environment:
+                    - JAVA_OPTS=-Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true
+                  volumes:
+                    - /home/ubuntu/jenkins_compose/jenkins_configuration:/var/jenkins_home
+                    - /var/run/docker.sock:/var/run/docker.sock
+                    - /home/ubuntu/apps:/apps
+              EOL
+
+              # Create folders for volumes
+              mkdir -p /home/ubuntu/jenkins_compose/jenkins_configuration
+              mkdir -p /home/ubuntu/apps
+
+              # Change ownership
+              chown -R ubuntu:ubuntu /home/ubuntu/jenkins_compose
+
+              # Switch to ubuntu user and build + run docker-compose
+              su - ubuntu -c "cd /home/ubuntu/jenkins_compose && docker-compose up -d"
               EOF
 }
