@@ -8,7 +8,7 @@ pipeline {
 
   environment {
     APP_NAME = 'flask-app'
-    APP_PATH = '/apps/Python'
+    APP_PATH = '/apps/flask-app'
     IMAGE_NAME = "${APP_NAME}:${params.VERSION}"
     CONTAINER_NAME = "${APP_NAME}-${params.ENVIRONMENT.toLowerCase()}"
   }
