@@ -8,7 +8,7 @@ pipeline {
 
   environment {
     APP_NAME = 'front-app'
-    APP_PATH = '/apps/Front'
+    APP_PATH = '/apps/front-ap'
     IMAGE_NAME = "${APP_NAME}:${params.VERSION}"
     CONTAINER_NAME = "${APP_NAME}-${params.ENVIRONMENT.toLowerCase()}"
   }
