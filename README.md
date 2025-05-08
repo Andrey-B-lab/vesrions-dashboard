@@ -13,7 +13,7 @@ For example:
 
 ## Project Summary and Guide
 
-[Project Summary and Guide]([https://www.google.com ](https://medium.com/@andreybyhalenko/devops-example-project-for-your-portfolio-version-control-dashboard-grafana-jenkins-postgresql-db323fc00103 "Medium article")
+([Medium Article ](https://medium.com/@andreybyhalenko/devops-example-project-for-your-portfolio-version-control-dashboard-grafana-jenkins-postgresql-db323fc00103 "Medium article")
 
 
 ---
